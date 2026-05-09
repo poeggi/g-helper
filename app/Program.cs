@@ -236,6 +236,7 @@ namespace GHelper
                 Logger.WriteLine("Session:" + e.Reason.ToString());
                 Aura.sessionLock = false;
                 ScreenControl.AutoScreen();
+                Task.Delay(2000).ContinueWith(_ => modeControl.AutoRyzen());
             }
             if (e.Reason == SessionSwitchReason.SessionLock)
             {
