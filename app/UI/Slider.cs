@@ -112,16 +112,19 @@ namespace GHelper.UI
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-
             switch (e.KeyCode)
             {
                 case Keys.Right:
                 case Keys.Up:
-                    Value = Math.Min(Max, Value + Step);
+                    Value = Stops != null
+                        ? (Stops.FirstOrDefault(s => s > Value, Stops[^1]))
+                        : Math.Min(Max, Value + Step);
                     break;
                 case Keys.Left:
                 case Keys.Down:
-                    Value = Math.Max(Min, Value - Step);
+                    Value = Stops != null
+                        ? (Stops.LastOrDefault(s => s < Value, Stops[0]))
+                        : Math.Max(Min, Value - Step);
                     break;
             }
 
