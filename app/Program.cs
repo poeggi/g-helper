@@ -237,7 +237,11 @@ namespace GHelper
                 bool wasLocked = Aura.sessionLock;
                 Aura.sessionLock = false;
                 ScreenControl.AutoScreen();
-                if (wasLocked) Task.Delay(2000).ContinueWith(_ => modeControl.AutoCPUTemp());
+                if (wasLocked) Task.Delay(2000).ContinueWith(_ =>
+                {
+                    if (Math.Abs(DateTimeOffset.Now.ToUnixTimeMilliseconds() - lastAuto) < 10000) return;
+                    modeControl.AutoCPUTemp();
+                });
             }
             if (e.Reason == SessionSwitchReason.SessionLock)
             {
