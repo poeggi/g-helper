@@ -145,12 +145,11 @@ namespace GHelper.UI
 
             if (Stops != null && Stops.Length > 0 && Max > Min)
             {
-                using Pen penNotch = new Pen(Color.Gray, 4f) { StartCap = System.Drawing.Drawing2D.LineCap.Round, EndCap = System.Drawing.Drawing2D.LineCap.Round };
-                float notchHalf = _barSize.Height * 1f;
+                float snapRadius = _barSize.Height * 0.9f;
                 foreach (int stop in Stops)
                 {
                     float x = _barSize.Width / (Max - Min) * (stop - Min) + _barPos.X;
-                    e.Graphics.DrawLine(penNotch, x, _thumbPos.Y - notchHalf, x, _thumbPos.Y + notchHalf);
+                    e.Graphics.FillCircle(brushEmpty, x, _thumbPos.Y, snapRadius);
                 }
             }
 
