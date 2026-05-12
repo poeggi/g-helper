@@ -72,14 +72,19 @@ namespace GHelper.UI
                 _step = value;
             }
         }
+
+        public int[]? Stops { get; set; }
+
         private int _value = 50;
         public int Value
         {
             get => _value;
             set
             {
-
-                value = (int)Math.Round(value / (float)_step) * _step;
+                if (Stops != null && Stops.Length > 0)
+                    value = Stops.MinBy(s => Math.Abs(s - value));
+                else
+                    value = (int)Math.Round(value / (float)_step) * _step;
 
                 if (_value != value)
                 {
